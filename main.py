@@ -4,13 +4,13 @@ from mcp.server.fastmcp import FastMCP
 from order import pizza
 
 # Initialize FastMCP server
-mcp = FastMCP("mcpPizza")
+mcp = FastMCP("mcpPizza", host="0.0.0.0", port="8000")
 
 # Constants
 PIZZA_API_BASE = "http://localhost:8000"
 USER_AGENT = "pizza-app/1.0"
 
-async def pizza_order_api_call(url: str, order: pizza.PizzaOrder) -> dict[str, Any] | None:
+async def create_pizza_order_api_call(url: str, order: pizza.PizzaOrder) -> dict[str, Any] | None:
     """Make a request to the NWS API with proper error handling."""
     headers = {
         "User-Agent": USER_AGENT,
@@ -46,7 +46,7 @@ async def order_pizza(order: pizza.PizzaOrder) -> str:
     """
     
     url = f"{PIZZA_API_BASE}/local"
-    data = await pizza_order_api_call(url, order)
+    data = await create_pizza_order_api_call(url, order)
 
     print("results from REST api to NWS endpoint", data)
 
@@ -62,4 +62,4 @@ async def order_pizza(order: pizza.PizzaOrder) -> str:
 
 if __name__ == "__main__":
     # Initialize and run the server
-    mcp.run(transport='stdio')
+    mcp.run(transport='sse')
