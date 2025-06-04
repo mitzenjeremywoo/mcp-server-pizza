@@ -1,7 +1,11 @@
 # Use official Python base image
-FROM python:3.12-slim
+FROM python:3.11-slim
 
 # Install curl (used to install uv) and some system dependencies
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    curl gcc build-essential ca-certificates \
+    && rm -rf /var/lib/apt/lists/*
+
 # Install uv and move it to a directory in PATH
 RUN curl -LsSf https://astral.sh/uv/install.sh | sh && \
     mv ~/.cargo/bin/uv /usr/local/bin/
