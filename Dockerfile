@@ -8,7 +8,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 
 # Install uv and move it to a directory in PATH
 RUN curl -LsSf https://astral.sh/uv/install.sh | sh && \
-    mv ~/.cargo/bin/uv /usr/local/bin/
+    mv  /root/.local/bin/uv /usr/local/bin/
 
 # Install uv
 RUN curl -LsSf https://astral.sh/uv/install.sh | sh
